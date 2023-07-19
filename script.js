@@ -1,3 +1,72 @@
+//link to the DOM
+var timerEl = document.querySelector(".timer");
+var questionEl = document.querySelector(".question");
+var choiceEl = document.querySelector(".choice");
+var answerEl = document.querySelector(".answer");
+var resultEl = document.querySelector(".result");
+var startButton = document.querySelector(".controls__start");
+var submitButton = document.querySelector(".controls__submit");
+var restartButton = document.querySelector(".controls__restart");
+var clearButton = document.querySelector(".controls__clear");
+
+var correct = 0;
+var incorrect = 0;
+var timer = null;
+var timeLeft = 0;
+
+//constant
+var kDuration = 30;
+
+//event: page load
+function init() {
+    console.log('Game Loading...');
+}
+
+//event: start button
+function startQuiz(ev) {
+    console.log("Quiz started!");
+}
+startButton.addEventListener("click", startQuiz);
+
+//event: timer tick
+function handleTimerTick(ev) {
+    console.log("timer ticked!");
+}
+
+//event: select a choice
+function handleSelectedChoice(ev) {
+    console.log("you selected answer");
+}
+questionEl.addEventListener("click", handleSelectedChoice);
+
+//event: submit initals
+function submitInitials(ev) {
+    console.log("you submitted your initials!");
+}
+submitButton.addEventListener("click", submitInitials);
+
+//event: go back
+function handleRestart(ev) {
+    console.log("you restarted the game!");
+}
+
+restartButton.addEventListener("click", handleRestart);
+
+//event: clear high score
+function handleClearScore(ev) {
+    console.log("you cleared all scores!");
+}
+
+clearButton.addEventListener("click", handleClearScore);
+
+//event: game ends
+
+
+
+//refactoring - functions we reuse outside of event handlers
+
+init();
+
 let quizData = [
     {
         question: "Commonly used datatypes DO NOT include _______.",
@@ -40,60 +109,3 @@ let quizData = [
             correct: "d",
     }
 ];
-
-const quiz= document.getElementById('quiz');
-const answerEls = document.querySelectorAll('.answer');
-const questionEl = document.getElementById('question');
-const a_text = document.getElementById('a_text');
-const b_text = document.getElementById('b_text');
-const c_text = document.getElementById('c_text');
-const d_text = document.getElementById('d_text');
-const submitBtn = document.getElementById('submit');
-
-let currentQuiz = 0
-let score = 0
-
-loadQuiz ()
-
-function loadQuiz() {
-    deselectAnswers ()
-
-    const currentQuizData = quizData[currentQuiz]
-
-    questionEl.innertext = currentQuizData.question
-    a_text.innerText = currentQuizData.a
-    b_text.innerText = currentQuizData.b
-    c_text.innerText = currentQuizData.c
-    d_text.innerText = currentQuizData.d
-}
-function deselectAnswers() {
-    answerEls.forEach(answerEls => answerEls.checked = false)
-}
-function getSelected() {
-    let answerEls
-    answerEls.forEach(answerEl => {
-        if(answerEl.checked) {
-            answer = answerEl.id
-        }
-    })
-    return answer
-}
-
-submitBtn.addEventListener('click', () => {
-    const answer = getSelected()
-    if(answer) {
-        if (answer === quizData[currentQuiz].correct) {
-        score++
-        }
-    currentQuiz++
-    if(currentQuiz < quizData.length) {
-        loadQuiz()
-    } else {
-        quiz.innerHTML =
-        `<h2>You answered ${score}/${quizData.length} quetions correctly</h2>
-
-        <button onclick="location.reload()">Reload</button>
-        `
-    }
-}
-})
