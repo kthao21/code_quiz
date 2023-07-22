@@ -1,0 +1,15 @@
+button.hide {
+    display: none !important;
+}
+
+.success {
+    background-color: green;
+    color: white;
+}
+.failure {
+    background-color: red;
+    color: white;
+}
+.hide {
+    display: none;
+}
