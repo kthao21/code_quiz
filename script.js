@@ -1,11 +1,44 @@
-let quizData = [
+//link to the DOM
+var quizContainer = document.getElementById("quiz");
+var resultsContainer = document.getElementById("results");
+var timerEl = document.querySelector(".timer");
+var choiceEl = document.querySelector(".choice-container");
+var answerEl = document.querySelector(".answer");
+var resultEl = document.querySelector(".result");
+var winsEl = document.querySelector(".scoreboard__score__value--wins");
+var lossesEl = document.querySelector(".scoreboard__score__value--losses");
+var controlsEl = document.querySelector(".controls");
+var startButton = document.querySelector(".controls__start");
+var restartButton = document.querySelector(".controls__restart");
+var clearButton = document.querySelector(".controls__clear");
+var questionEl = document.querySelector("#question");
+var answerAEl = document.querySelector("#a");
+var answerBEl = document.querySelector("#b");
+var answerCEl = document.querySelector("#c");
+var answerDEl = document.querySelector("#d");
+var alertEl = document.querySelector(".alert");
+var scoreScreenEl = document.querySelector("#scores-screen");
+var submitEl = document.getElementById("submit");
+var initialEl = document.querySelector("#initials");
+var scoreEl = document.querySelector("#scoreEl");
+
+
+
+var correct = 0;
+var incorrect = 0;
+var timer = null;
+var timeLeft = 10;
+var score = 0;
+var currentQuestionIndex = 0;
+
+var questionList = [
     {
         question: "Commonly used datatypes DO NOT include _______.",
             a: "Booleans",
             b: "Strings",
             c: "Alerts",
             d: "Numbers",
-            correct: "c",
+            correctAnswer: "c",
     },
     {
         question: "The condition in an if/else statement is enclosed with _______.",
@@ -13,7 +46,7 @@ let quizData = [
             b: "Parenthesis",
             c: "Curly Brackets",
             d: "Square Brackets",
-            correct: "c",
+            correctAnswer: "c",
     },
     {
         question: "Arrays in JavaScript can be used to store ________.",
@@ -21,7 +54,7 @@ let quizData = [
             b: "other arrays",
             c: "booleans",
             d: "all of the above",
-            correct: "a",
+            correctAnswer: "a",
     },
     {
         question: "String values must be enclosed within _______ when being assigned to variables.",
@@ -29,7 +62,7 @@ let quizData = [
             b: "curly brackets",
             c: "quotes",
             d: "parenthesis",
-            correct: "c",
+            correctAnswer: "c",
     },
     {
         question: "A very useful tool used during development and debugging for printing content to the debugger is:",
@@ -37,63 +70,133 @@ let quizData = [
             b: "Terminal/Bash",
             c: "for loops",
             d: "console.log",
-            correct: "d",
+            correctAnswer: "d",
     }
 ];
 
-const quiz= document.getElementById('quiz');
-const answerEls = document.querySelectorAll('.answer');
-const questionEl = document.getElementById('question');
-const a_text = document.getElementById('a_text');
-const b_text = document.getElementById('b_text');
-const c_text = document.getElementById('c_text');
-const d_text = document.getElementById('d_text');
-const submitBtn = document.getElementById('submit');
 
-let currentQuiz = 0
-let score = 0
+//constant
+var kDuration = 10;
+var kStorageCorrectAnswer = "correct answers";
+var kStorageIncorrectAnswer = "incorrect answers";
 
-loadQuiz ()
+//event: page load
+function init() {
+    console.log('Game Loading...');
 
-function loadQuiz() {
-    deselectAnswers ()
-
-    const currentQuizData = quizData[currentQuiz]
-
-    questionEl.innertext = currentQuizData.question
-    a_text.innerText = currentQuizData.a
-    b_text.innerText = currentQuizData.b
-    c_text.innerText = currentQuizData.c
-    d_text.innerText = currentQuizData.d
-}
-function deselectAnswers() {
-    answerEls.forEach(answerEls => answerEls.checked = false)
-}
-function getSelected() {
-    let answerEls
-    answerEls.forEach(answerEl => {
-        if(answerEl.checked) {
-            answer = answerEl.id
-        }
-    })
-    return answer
 }
 
-submitBtn.addEventListener('click', () => {
-    const answer = getSelected()
-    if(answer) {
-        if (answer === quizData[currentQuiz].correct) {
-        score++
-        }
-    currentQuiz++
-    if(currentQuiz < quizData.length) {
-        loadQuiz()
+//event: start button
+function startQuiz(ev) {
+    console.log(currentQuestionIndex);
+    console.log("Quiz started!");
+    timer = setInterval(handleTimerTick, 1000);
+    score = 0;
+    startButton.setAttribute("class", "hide");
+    showQuestion();
+}
+startButton.addEventListener("click", startQuiz);
+
+function showQuestion () {
+    questionEl.textContent = questionList[currentQuestionIndex].question;
+    answerAEl.textContent = questionList[currentQuestionIndex].a;
+    answerBEl.textContent = questionList[currentQuestionIndex].b;
+    answerCEl.textContent = questionList[currentQuestionIndex].c;
+    answerDEl.textContent = questionList[currentQuestionIndex].d;
+    choiceEl.addEventListener("click", checkAnswer);
+}
+function checkAnswer(event) {
+    console.log(event.target);
+    if (event.target.getAttribute("id") == questionList[currentQuestionIndex].correctAnswer) {
+        alertEl.textContent = "correct";
+        score++;
     } else {
-        quiz.innerHTML =
-        `<h2>You answered ${score}/${quizData.length} quetions correctly</h2>
-
-        <button onclick="location.reload()">Reload</button>
-        `
+        alertEl.textContent = "incorrect";
+    }
+    alertEl.setAttribute("class", "alert");
+    setTimeout(function() {
+        alertEl.setAttribute("class", "alert hide");
+    }, 1000);
+    currentQuestionIndex++;
+    if (timeLeft <= "0" || currentQuestionIndex === questionList.length) {
+       quizEnd ();
+       console.log("game over!");
+    } else {
+        showQuestion();
     }
 }
-})
+
+
+
+
+//event: timer tick
+function handleTimerTick(ev) {
+    timeLeft--;
+    console.log("timer ticked!", timeLeft);
+
+    timerEl.textContent = timeLeft;
+}
+
+
+
+//event: submit initals
+function submitInitials(ev) {
+    console.log("you submitted your initials!");
+}
+//submitButton.addEventListener("click", submitInitials);
+
+//event: go back
+function handleRestart(ev) {
+    console.log("you restarted the game!");
+}
+
+restartButton.addEventListener("click", handleRestart);
+
+//event: clear high score
+function handleClearScore(ev) {
+    console.log("you cleared all scores!");
+}
+
+clearButton.addEventListener("click", handleClearScore);
+
+//event: game ends
+function quizEnd() {
+    clearInterval(timer);
+
+    scoreScreenEl.removeAttribute("class");
+    scoreEl.textContent = score;
+    quizContainer.setAttribute("class", "hide");
+
+}
+    
+function saveScore() {
+    console.log('testing');
+    var initials = initialEl.value.trim();
+    if ( initials !== '') {
+        console.log("testing 2");
+        var highScores = JSON.parse(window.localStorage.getItem("highScores")) || [];
+        //creating a score object for local storage
+        var newScore = {
+            score: score,
+            initals: initials,
+        };
+        highScores.push(newScore);
+        window.localStorage.setItem("highScores", JSON.stringify(highScores));
+
+        //take us to high scores page
+
+        window.location.href="highscore.html";
+    }
+}
+submitEl.addEventListener("submit", function() {
+    saveScore();
+});
+
+//refactoring - functions we reuse outside of event handlers
+
+
+
+
+
+init();
+

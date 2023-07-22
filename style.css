@@ -1,58 +1,15 @@
-* {
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
-    box-sizing: border-box;
-}
-body {
-    background-color: #287199;
-}
-div {
-background: white;
-width: 90%;
-max-width: 600px;
-margin: 100px auto 0;
-border-radius: 10px;
-padding: 30px;
-}
-.btn {
-    background: white;
-    font-weight: 500;
-    width: 100%;
-    border: 1px solid #222;
-    padding: 10px;
-    margin: 10px 0;
-    text-align: left;
-    border-radius: 5px;
-    transition: all 0.3s;
-}
-.btn:hover {
-    background: gray;
-    color: white;
-}
-ul {
-    list-style-type: none;
+button.hide {
+    display: none !important;
 }
 
-ul li {
-margin: 1rem 0;
-}
-ul li label {
-    cursor: pointer;
-}
-button {
-    background-color: gray;
+.success {
+    background-color: green;
     color: white;
-    display: block;
-    width: 20%;
-    cursor: pointer;
-    font-size: 15px;
-    border: none;
-    border-radius: 0.5rem;
-    padding: 0.5rem;
 }
-button:hover {
-    background-color: #287199;
-    border-color: black;
-    box-shadow: 3px 3px black;
+.failure {
+    background-color: red;
+    color: white;
+}
+.hide {
+    display: none;
 }
