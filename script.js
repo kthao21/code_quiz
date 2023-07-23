@@ -7,8 +7,6 @@ var answerEl = document.querySelector(".answer");
 var resultEl = document.querySelector(".result");
 var controlsEl = document.querySelector(".controls");
 var startButton = document.querySelector(".controls__start");
-var restartButton = document.querySelector(".controls__restart");
-var clearButton = document.querySelector(".controls__clear");
 var questionEl = document.querySelector("#question");
 var answerAEl = document.querySelector("#a");
 var answerBEl = document.querySelector("#b");
@@ -25,7 +23,7 @@ var scoreEl = document.querySelector("#scoreEl");
 var correct = 0;
 var incorrect = 0;
 var timer = null;
-var timeLeft = 10;
+var timeLeft = 30;
 var score = 0;
 var currentQuestionIndex = 0;
 
@@ -74,7 +72,7 @@ var questionList = [
 
 
 //constant
-var kDuration = 10;
+var kDuration = 30;
 var kStorageCorrectAnswer = "correct answers";
 var kStorageIncorrectAnswer = "incorrect answers";
 
@@ -127,7 +125,6 @@ function checkAnswer(event) {
 
 
 
-
 //event: timer tick
 function handleTimerTick(ev) {
     timeLeft--;
@@ -136,24 +133,6 @@ function handleTimerTick(ev) {
     timerEl.textContent = timeLeft;
 }
 
-
-
-//event: submit initals
-function submitInitials(ev) {
-    console.log("you submitted your initials!");
-}
-//submitButton.addEventListener("click", submitInitials);
-
-//event: go back
-function handleRestart(ev) {
-    console.log("you restarted the game!");
-}
-
-
-//event: clear high score
-function handleClearScore(ev) {
-    console.log("you cleared all scores!");
-}
 
 
 //event: game ends

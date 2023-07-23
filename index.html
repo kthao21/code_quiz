@@ -11,29 +11,31 @@
 <body>
     <header><h1>Code Quiz</h1></header>
     <main>
-        <div id="quiz" class="hide">
-        <h2 id="question">Question goes here</h2>
-        <div class="choice-container">
-            <button id="a"></button>
-            <button id="b"></button>
-            <button id="c"></button>
-            <button id="d"></button>
+        <div id="container">
+            <div id="quiz" class="hide">
+            <h2 id="question">Question goes here</h2>
+            <div class="choice-container">
+                <button id="a"></button>
+                <button id="b"></button>
+                <button id="c"></button>
+                <button id="d"></button>
+            </div>
+            <div class="alert hide"></div>
         </div>
-        <div class="alert hide"></div>
-    </div>
-    <div id="scores-screen" class="hide">
-        <p>Your final score is <span id="scoreEl"></span></p>
-        <p>Enter your initials: <input type="text" id="initials" max="3"/>
-            <button id="submit">Submit</button>
-        </p>
-    </div>
-        <section class="gameboard"></section>
-            <div class="result"></div>
-            <div class="timer"></div>
-            <div class="display"></div>
-        <section class="controls">
-            <button class="controls__start">Start Quiz</button>
-        </section>
+        <div id="scores-screen" class="hide">
+            <p>Your final score is <span id="scoreEl"></span></p>
+            <p>Enter your initials: <input type="text" id="initials" max="3"/>
+                <button id="submit">Submit</button>
+            </p>
+        </div>
+            <section class="gameboard"></section>
+                <div class="result"></div>
+                <div class="timer"></div>
+                <div class="display"></div>
+            <section class="controls">
+                <button class="controls__start">Start Quiz</button>
+            </section>
+        </div>
     </main>
     <script src="./script.js"></script>
 </body>
