@@ -5,8 +5,6 @@ var timerEl = document.querySelector(".timer");
 var choiceEl = document.querySelector(".choice-container");
 var answerEl = document.querySelector(".answer");
 var resultEl = document.querySelector(".result");
-var winsEl = document.querySelector(".scoreboard__score__value--wins");
-var lossesEl = document.querySelector(".scoreboard__score__value--losses");
 var controlsEl = document.querySelector(".controls");
 var startButton = document.querySelector(".controls__start");
 var restartButton = document.querySelector(".controls__restart");
@@ -93,6 +91,7 @@ function startQuiz(ev) {
     timer = setInterval(handleTimerTick, 1000);
     score = 0;
     startButton.setAttribute("class", "hide");
+    quizContainer.removeAttribute("class");
     showQuestion();
 }
 startButton.addEventListener("click", startQuiz);
@@ -150,14 +149,12 @@ function handleRestart(ev) {
     console.log("you restarted the game!");
 }
 
-restartButton.addEventListener("click", handleRestart);
 
 //event: clear high score
 function handleClearScore(ev) {
     console.log("you cleared all scores!");
 }
 
-clearButton.addEventListener("click", handleClearScore);
 
 //event: game ends
 function quizEnd() {
@@ -178,7 +175,7 @@ function saveScore() {
         //creating a score object for local storage
         var newScore = {
             score: score,
-            initals: initials,
+            initials: initials,
         };
         highScores.push(newScore);
         window.localStorage.setItem("highScores", JSON.stringify(highScores));
@@ -188,9 +185,7 @@ function saveScore() {
         window.location.href="highscore.html";
     }
 }
-submitEl.addEventListener("submit", function() {
-    saveScore();
-});
+submitEl.onclick = saveScore;
 
 //refactoring - functions we reuse outside of event handlers
 
